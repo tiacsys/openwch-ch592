@@ -1,5 +1,5 @@
 /* Define for CH592         */
-/* Website:  http://wch.cn  */
+/* Website:  https://wch.cn  */
 /* Email:    tech@wch.cn    */
 /* Author:   W.ch 2023.02   */
 /* V0.2 SpecialFunctionRegister */
@@ -208,7 +208,7 @@ extern "C" {
 #define  RB_RLR             0x0FFF                    // RW, watch-dog counter reload (write protect)
 #define  RB_PR              0x7000                    // PR, prescale (write protect)
 #define  RB_PVU             0x8000                    // RO, register update flag (write protect)
-#define  RB_COUNT           0xFF0000                  // RO, watch-dog down counter
+#define  RB_COUNT           0xFFF0000                 // RO, watch-dog down counter
 #define  RB_STOP_EN         0x20000000                // RW, watch-dog stop enable (write protect)
 #define  RB_WR_PROTECT      0x40000000                // RO, write protect
 #define  RB_IWDG_EN         0x80000000                // RO, watch-dog enable
@@ -315,9 +315,8 @@ extern "C" {
 #define  RB_SLP_CLK_RAMX    0x10                      // RWA, close main SRAM clock
 #define  RB_SLP_CLK_RAM2K   0x20                      // RWA, close retention 2KB SRAM clock
 #define  RB_RAM_RET_LV      0x40                      // RWA, SRAM retention voltage selection: 0=normal, 1=low voltage for low power
-#define R32_SLEEP_CTRL2     (*((PUINT32V)0x40001010)) // RWA, touchkey wake up enable
-#define  RB_TKEY0_5_WAKE_EN    0x003F                 // RWA, touchkey wake up enable channel 0-5
-#define  RB_TKEY8_13_WAKE_EN   0x3F00                 // RWA, touchkey wake up enable channel 8-13
+#define R32_SLEEP_CTRL3     (*((PUINT32V)0x40001014)) // RWA, sleep control3
+#define  RB_SLP_GPIO_EDGE_MODE    0x0001                 // RWA, when RB_GPIO_WAKE_MODE=1,GPIO waking edge select:1=all edge,0=pos edge
 
 /* System: I/O pin configuration register */
 #define R32_PIN_CONFIG      (*((PUINT32V)0x40001018)) // RW, I/O pin configuration
@@ -537,6 +536,9 @@ extern "C" {
 #define R32_GPIO_INT_MODE   (*((PUINT32V)0x40001094)) // RW, GPIO interrupt mode: 0=level action, 1=edge action
 #define R16_PA_INT_MODE     (*((PUINT16V)0x40001094)) // RW, GPIO PA interrupt mode: 0=level action, 1=edge action
 #define R16_PB_INT_MODE     (*((PUINT16V)0x40001096)) // RW, GPIO PB interrupt mode: 0=level action, 1=edge action
+#define R32_GPIO_INT_EDGE_TYPE (*((PUINT32V)0x40001098)) // RW, GPIO interrupt edge selection
+#define R16_PA_INT_EDGE_TYPE (*((PUINT16V)0x40001098)) // RW, GPIO PA interrupt edge selection
+#define R16_PB_INT_EDGE_TYPE (*((PUINT16V)0x4000109A)) // RW, GPIO PB interrupt edge selection
 #define R32_GPIO_INT_IF     (*((PUINT32V)0x4000109C)) // RW1, GPIO interrupt flag
 #define R16_PA_INT_IF       (*((PUINT16V)0x4000109C)) // RW1, GPIO PA interrupt flag
 #define R16_PB_INT_IF       (*((PUINT16V)0x4000109E)) // RW1, GPIO PB interrupt flag
@@ -721,6 +723,7 @@ extern "C" {
 #define R8_TMR0_CTRL_MOD    (*((PUINT8V)0x40002000))  // RW, TMR0 mode control
 #define R8_TMR0_INTER_EN    (*((PUINT8V)0x40002002))  // RW, TMR0 interrupt enable
 // #define R32_TMR0_STATUS     (*((PUINT32V)0x40002004)) // RW, TMR0 status
+#define R8_TMR0_PWM_MOD     (*((PUINT8V)0x40002004))  // RW, TMR0 PWM repeat mode
 #define R8_TMR0_INT_FLAG    (*((PUINT8V)0x40002006))  // RW1, TMR0 interrupt flag
 #define R8_TMR0_FIFO_COUNT  (*((PUINT8V)0x40002007))  // RO, TMR0 FIFO count status
 #define R32_TMR0_COUNT      (*((PUINT32V)0x40002008)) // RO, TMR0 current count
@@ -737,6 +740,7 @@ extern "C" {
 #define R8_TMR1_CTRL_DMA    (*((PUINT8V)0x40002401))  // RW, TMR1 DMA control
 #define R8_TMR1_INTER_EN    (*((PUINT8V)0x40002402))  // RW, TMR1 interrupt enable
 // #define R32_TMR1_STATUS     (*((PUINT32V)0x40002404)) // RW, TMR1 status
+#define R8_TMR1_PWM_MOD     (*((PUINT8V)0x40002404))  // RW, TMR1 PWM repeat mode
 #define R8_TMR1_INT_FLAG    (*((PUINT8V)0x40002406))  // RW1, TMR1 interrupt flag
 #define R8_TMR1_FIFO_COUNT  (*((PUINT8V)0x40002407))  // RO, TMR1 FIFO count status
 #define R32_TMR1_COUNT      (*((PUINT32V)0x40002408)) // RO, TMR1 current count
@@ -759,6 +763,7 @@ extern "C" {
 #define R8_TMR2_CTRL_DMA    (*((PUINT8V)0x40002801))  // RW, TMR2 DMA control
 #define R8_TMR2_INTER_EN    (*((PUINT8V)0x40002802))  // RW, TMR2 interrupt enable
 // #define R32_TMR2_STATUS     (*((PUINT32V)0x40002804)) // RW, TMR2 status
+#define R8_TMR2_PWM_MOD     (*((PUINT8V)0x40002804))  // RW, TMR2 PWM repeat mode
 #define R8_TMR2_INT_FLAG    (*((PUINT8V)0x40002806))  // RW1, TMR2 interrupt flag
 #define R8_TMR2_FIFO_COUNT  (*((PUINT8V)0x40002807))  // RO, TMR2 FIFO count status
 #define R32_TMR2_COUNT      (*((PUINT32V)0x40002808)) // RO, TMR2 current count
@@ -780,6 +785,7 @@ extern "C" {
 #define R8_TMR3_CTRL_MOD    (*((PUINT8V)0x40002C00))  // RW, TMR3 mode control
 #define R8_TMR3_INTER_EN    (*((PUINT8V)0x40002C02))  // RW, TMR3 interrupt enable
 // #define R32_TMR3_STATUS     (*((PUINT32V)0x40002C04)) // RW, TMR3 status
+#define R8_TMR3_PWM_MOD     (*((PUINT8V)0x40002C04))  // RW, TMR3 PWM repeat mode
 #define R8_TMR3_INT_FLAG    (*((PUINT8V)0x40002C06))  // RW1, TMR3 interrupt flag
 #define R8_TMR3_FIFO_COUNT  (*((PUINT8V)0x40002C07))  // RO, TMR3 FIFO count status
 #define R32_TMR3_COUNT      (*((PUINT32V)0x40002C08)) // RO, TMR3 current count
@@ -814,6 +820,8 @@ extern "C" {
 #define  RB_TMR_IE_FIFO_HF  0x04                      // RW, enable interrupt for timer FIFO half (capture fifo >=4 or PWM fifo <=3)
 #define  RB_TMR_IE_DMA_END  0x08                      // RW, enable interrupt for timer1/2 DMA completion
 #define  RB_TMR_IE_FIFO_OV  0x10                      // RW, enable interrupt for timer FIFO overflow
+#define TMR_PWM_MOD         4
+#define RB_TMR_PWM_MOD      0x01	                  // RW, timer PWM mode, the first data repetition is controlled by RB_TMR_PWM_REPEAT bit 
 #define TMR_INT_FLAG        6
 #define  RB_TMR_IF_CYC_END  0x01                      // RW1, interrupt flag for timer capture count timeout or PWM cycle end
 #define  RB_TMR_IF_DATA_ACT 0x02                      // RW1, interrupt flag for timer capture input action or PWM trigger
@@ -1001,6 +1009,8 @@ extern "C" {
 #define R8_SPI0_RUN_FLAG    (*((PUINT8V)0x40004005))  // RO, SPI0 work flag
 #define R8_SPI0_INT_FLAG    (*((PUINT8V)0x40004006))  // RW1, SPI0 interrupt flag
 #define R8_SPI0_FIFO_COUNT  (*((PUINT8V)0x40004007))  // RO, SPI0 FIFO count status
+#define R8_SPI0_CTRL_MOD1   (*((PUINT8V)0x40004008))  // RW, SPI0 mode control1
+#define R8_SPI0_CTRL_MOD2   (*((PUINT8V)0x40004009))  // RW, SPI0 mode control2
 #define R32_SPI0_TOTAL_CNT  (*((PUINT32V)0x4000400C)) // RW, SPI0 total byte count, only low 12 bit
 #define R16_SPI0_TOTAL_CNT  (*((PUINT16V)0x4000400C)) // RW, SPI0 total byte count, only low 12 bit
 #define R32_SPI0_FIFO       (*((PUINT32V)0x40004010)) // RW, SPI0 FIFO register
@@ -1057,6 +1067,10 @@ extern "C" {
 #define  RB_SPI_IF_FST_BYTE 0x80                      // RW1, interrupt flag for SPI0 slave mode first byte received
 #define SPI_FIFO_COUNT      7
 #define SPI_TOTAL_CNT       0x0C
+#define SPI_CTRL_MOD1	8
+#define  RB_MST_CLK_SEL  0x01
+#define SPI_CTRL_MOD2	9
+#define  RB_SLV_FAST_MOD  0x01
 #define SPI_FIFO            0x10
 #define SPI_DMA_NOW         0x14
 #define SPI_DMA_BEG         0x18

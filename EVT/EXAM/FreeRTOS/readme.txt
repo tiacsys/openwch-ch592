@@ -1,14 +1,14 @@
-本工程为 FreeRTOS-KernelV10.5.1 在Qingke V4C RISC-V内核的CH592/1上的移植。
+本工程为 FreeRTOS-KernelV11.1.0 在Qingke V4C RISC-V内核的CH592/1上的移植。
 
 需要注意以下几点：
 
 	1.配置文件路径为工程目录下FreeRTOS/FreeRTOSConfig.h
 	
-	2.本移植例程默认使用了硬件压栈（不可关闭），未使用中断嵌套，用户使用的外部中断函数最好使用__attribute__((section(".highcode")))修饰，保证运行速度。
+	2.本移植例程默认使用了硬件压栈（不可关闭），中断嵌套可选，用户使用的外部中断函数最好使用__attribute__((section(".highcode")))修饰，保证运行速度。
 	
 	3.使能中断嵌套会导致每个中断执行会多约10个指令周期，中断嵌套使能通过工程右键 -> properties -> c/c++ Build -> settings -> tool settings -> GNU RISC-V Cross Assembler -> Preprocessor 右边输入框Defined symbols中的 ENABLE_INTERRUPT_NEST=0 修改为 ENABLE_INTERRUPT_NEST=1 即可。
 
-	4.startup_ch592.S中_vector_base下面的中断向量表库中如果是unified_interrupt_entry中断函数，则是统一入口中断函数，不需要再使用__attribute__((interrupt("WCH-Interrupt-fast")))或者__attribute__((interrupt()))修饰。其他则非统一入口，需要使用__attribute__((interrupt("WCH-Interrupt-fast")))或者__attribute__((interrupt()))修饰。
+	4.Startup_CH592_FreeRTOS.S中_vector_base下面的中断向量表库中如果是unified_interrupt_entry中断函数，则是统一入口中断函数，不需要再使用__attribute__((interrupt("WCH-Interrupt-fast")))或者__attribute__((interrupt()))修饰。其他则非统一入口，需要使用__attribute__((interrupt("WCH-Interrupt-fast")))或者__attribute__((interrupt()))修饰。
 	
 	5.CH592系列上电运行默认的栈为编译后剩余的RAM空间。所有统一入口的中断会把栈修改为LD文件中提供的__freertos_irq_stack_top，所以中断中可以使用的最大栈空间为RAM剩余空间。所以请一定要预留RAM空间给栈使用。
 		

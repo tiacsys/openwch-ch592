@@ -124,6 +124,8 @@ void PWR_PeriphClkCfg(FunctionalState s, uint16_t perph)
  *                    RB_SLP_RTC_WAKE   -  RTC 为唤醒源
  *                    RB_SLP_GPIO_WAKE  -  GPIO 为唤醒源
  *                    RB_SLP_BAT_WAKE   -  BAT 为唤醒源
+ *                    RB_GPIO_WAKE_MODE -  GPIO边沿为唤醒源（根据极性）
+ *                    RB_SLP_EDGE_WAKE  -  GPIO任意边沿为唤醒源
  * @param   mode    - refer to WakeUP_ModeypeDef
  *
  * @return  none
@@ -134,6 +136,11 @@ void PWR_PeriphWakeUpCfg(FunctionalState s, uint8_t perph, WakeUP_ModeypeDef mod
 
     if(s == DISABLE)
     {
+        if(perph & RB_SLP_EDGE_WAKE)
+        {
+            R32_SLEEP_CTRL3 &= ~ RB_SLP_GPIO_EDGE_MODE;
+            perph &= ~RB_SLP_EDGE_WAKE;
+        }
         sys_safe_access_enable();
         R8_SLP_WAKE_CTRL &= ~perph;
         sys_safe_access_disable();
@@ -155,6 +162,11 @@ void PWR_PeriphWakeUpCfg(FunctionalState s, uint8_t perph, WakeUP_ModeypeDef mod
                 break;
         }
 
+        if(perph & RB_SLP_EDGE_WAKE)
+        {
+            R32_SLEEP_CTRL3 |= RB_SLP_GPIO_EDGE_MODE;
+            perph &= ~RB_SLP_EDGE_WAKE;
+        }
         sys_safe_access_enable();
         R8_SLP_WAKE_CTRL |= RB_WAKE_EV_MODE | perph;
         sys_safe_access_disable();

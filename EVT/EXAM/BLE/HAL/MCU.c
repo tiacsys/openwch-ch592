@@ -166,6 +166,14 @@ void CH59x_BLEInit(void)
     {
         while(1);
     }
+    if(cfg.TxPower & (1<<7))
+    {
+        sys_safe_access_enable();
+        *( PUINT32V)(0x40001048) |= (6<<6);
+        *( PUINT32V)(0x40001020) |= (2<<19);
+        sys_safe_access_disable();
+
+    }
     i = BLE_LibInit(&cfg);
     if(i)
     {

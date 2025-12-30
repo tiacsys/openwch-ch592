@@ -92,12 +92,12 @@ int main()
     GPIOA_ModeCfg(GPIO_Pin_4, GPIO_ModeIN_Floating);
     ADC_ExtSingleChSampInit(SampleFreq_3_2, ADC_PGA_0);
     ADC_ChannelCfg(0);
-    ADC_AutoConverCycle(192); // 采样周期为 (256-192)*16个系统时钟
+    ADC_AutoConverCycle(192); // 采样周期为 (256-192)*16个系统时钟，周期太小可能会导致中断关闭DMA不及时
+    DMA_end = 0;
     ADC_DMACfg(ENABLE, (uint32_t)&adcBuff[0], (uint32_t)&adcBuff[40], ADC_Mode_Single);
     PFIC_EnableIRQ(ADC_IRQn);
     ADC_StartAutoDMA();
-    while(!DMA_end);
-    DMA_end = 0;
+    while(!ADC_DMACfg);
     ADC_DMACfg(DISABLE, 0, 0, 0);
 
     for(i = 0; i < 40; i++)
@@ -167,6 +167,7 @@ void ADC_IRQHandler(void) //adc中断服务程序
 {
     if(ADC_GetDMAStatus())
     {
+        // 停止DMA，如果关闭不及时，会导致自动启动第二次DMA，覆写之前采样的数据
         ADC_StopAutoDMA();
         R16_ADC_DMA_BEG = ((uint32_t)adcBuff) & 0xffff;
         ADC_ClearDMAFlag();

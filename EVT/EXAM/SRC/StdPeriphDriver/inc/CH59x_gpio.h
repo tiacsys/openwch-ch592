@@ -170,12 +170,30 @@ void GPIOB_ModeCfg(uint32_t pin, GPIOModeTypeDef mode);
 void GPIOA_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode);
 
 /**
+ * @brief   GPIOA引脚中断边沿类型配置
+ *
+ * @param   pin     -   PA4-PA15,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开任意沿模式
+ *                      DISABLE - 关闭任意沿，遵照极性
+ */
+void GPIOA_ITEdgeTypeCfg(uint32_t pin, FunctionalState s);
+
+/**
  * @brief   GPIOB引脚中断模式配置
  *
  * @param   pin     - PB0,PB4,PB6-PB7,PB10-PB15,PB22-PB23,对应芯片12个GPIO引脚
  * @param   mode    - 触发类型
  */
 void GPIOB_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode);
+
+/**
+ * @brief   GPIOB引脚中断边沿类型配置
+ *
+ * @param   pin     -   PB0,PB4,PB6-PB7,PB10-PB15,PB22-PB23,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开任意沿模式
+ *                      DISABLE - 关闭任意沿，遵照极性
+ */
+void GPIOB_ITEdgeTypeCfg(uint32_t pin, FunctionalState s);
 
 /**
  * @brief   读取GPIOA端口中断标志状态
@@ -248,6 +266,24 @@ void GPIOPinRemap(FunctionalState s, uint16_t perph);
  *                    RB_PIN_USB_IE     - USB 引脚
  */
 void GPIOAGPPCfg(FunctionalState s, uint16_t perph);
+
+/**
+ * @brief   GPIOA 管脚数字输入功能配置
+ *
+ * @param   pin     -   PA4-PA15,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开数字输入功能
+ *                      DISABLE - 关闭数字输入，可节约功耗
+ */
+void GPIOA_PinCfg(uint32_t pin, FunctionalState s);
+
+/**
+ * @brief   GPIOB 管脚数字输入功能配置
+ *
+ * @param   pin     -   PA4-PA15,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开数字输入功能
+ *                      DISABLE - 关闭数字输入，可节约功耗
+ */
+void GPIOB_PinCfg(uint32_t pin, FunctionalState s);
 
 #ifdef __cplusplus
 }

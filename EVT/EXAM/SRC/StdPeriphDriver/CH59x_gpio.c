@@ -148,6 +148,29 @@ void GPIOA_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode)
 }
 
 /*********************************************************************
+ * @fn      GPIOA_ITEdgeTypeCfg
+ *
+ * @brief   GPIOA引脚中断边沿类型配置
+ *
+ * @param   pin     -   PA4-PA15,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开任意沿模式
+ *                      DISABLE - 关闭任意沿，遵照极性
+ *
+ * @return  none
+ */
+void GPIOA_ITEdgeTypeCfg(uint32_t pin, FunctionalState s)
+{
+    if(s)
+    {
+        R16_PA_INT_EDGE_TYPE |= pin;
+    }
+    else
+    {
+        R16_PA_INT_EDGE_TYPE &= ~pin;
+    }
+}
+
+/*********************************************************************
  * @fn      GPIOB_ITModeCfg
  *
  * @brief   GPIOB引脚中断模式配置
@@ -187,6 +210,30 @@ void GPIOB_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode)
     }
     R16_PB_INT_IF = Pin;
     R16_PB_INT_EN |= Pin;
+}
+
+/*********************************************************************
+ * @fn      GPIOB_ITEdgeTypeCfg
+ *
+ * @brief   GPIOB引脚中断边沿类型配置
+ *
+ * @param   pin     -   PB0,PB4,PB6-PB7,PB10-PB15,PB22-PB23,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开任意沿模式
+ *                      DISABLE - 关闭任意沿，遵照极性
+ *
+ * @return  none
+ */
+void GPIOB_ITEdgeTypeCfg(uint32_t pin, FunctionalState s)
+{
+    uint32_t Pin = pin | ((pin & (GPIO_Pin_22 | GPIO_Pin_23)) >> 14);
+    if(s)
+    {
+        R16_PB_INT_EDGE_TYPE |= Pin;
+    }
+    else
+    {
+        R16_PB_INT_EDGE_TYPE &= ~Pin;
+    }
 }
 
 /*********************************************************************
@@ -241,5 +288,53 @@ void GPIOAGPPCfg(FunctionalState s, uint16_t perph)
     else
     {
         R16_PIN_ANALOG_IE &= ~perph;
+    }
+}
+
+/*********************************************************************
+ * @fn      GPIOA_PinCfg
+ *
+ * @brief   GPIOA 管脚数字输入功能配置
+ *
+ * @param   pin     -   PA4-PA15,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开数字输入功能
+ *                      DISABLE - 关闭数字输入，可节约功耗
+ *
+ * @return  none
+ */
+void GPIOA_PinCfg(uint32_t pin, FunctionalState s)
+{
+    if(s)
+    {
+        R32_PIN_CONFIG2 &= ~pin;
+    }
+    else
+    {
+        R32_PIN_CONFIG2 |= pin;
+    }
+}
+
+/*********************************************************************
+ * @fn      GPIOB_PinCfg
+ *
+ * @brief   GPIOB 管脚数字输入功能配置
+ *
+ * @param   pin     -   PA4-PA15,对应芯片12个GPIO引脚
+ * @param   s       -   ENABLE  - 打开数字输入功能
+ *                      DISABLE - 关闭数字输入，可节约功耗
+ *
+ * @return  none
+ */
+void GPIOB_PinCfg(uint32_t pin, FunctionalState s)
+{
+    uint32_t Pin = pin | ((pin & (GPIO_Pin_22 | GPIO_Pin_23)) >> 14);
+    Pin <<= 16;
+    if(s)
+    {
+        R32_PIN_CONFIG2 &= ~Pin;
+    }
+    else
+    {
+        R32_PIN_CONFIG2 |= Pin;
     }
 }

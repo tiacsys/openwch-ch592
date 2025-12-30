@@ -1,5 +1,5 @@
 /* CH592 Flash-ROM & Data-Flash  */
-/* Website:  http://wch.cn       */
+/* Website:  https://wch.cn       */
 /* Email:    tech@wch.cn         */
 /* Author:   W.ch 2020.06        */
 /* V1.0 FlashROM library for USER/BOOT */

@@ -1,7 +1,7 @@
 
-南京沁恒微电子股份有限公司 2025.08
+南京沁恒微电子股份有限公司 2025.11
 最新资料请到我们的网站上查询
-http://wch.cn
+https://wch.cn
 
 
 文件目录
@@ -63,6 +63,9 @@ http://wch.cn
   |      |      |      |      |-- HeartRate：心率计例程，连接主机后定时上传心率
   |      |      |      |      |-- Peripheral：外设从机角色例程，自定义包含五种不同属性的服务，包含可读、可写、通知、可读可写、安全可读
   |      |      |      |      |-- peripheral_ancs_client：外设从机角色例程，包含苹果通知中心服务
+  |      |      |      |      |-- RemoteController_IAP：备份无线升级IAP例程，配合RemoteController例程使用
+  |      |      |      |      |-- RemoteController_JumpIAP：备份无线升级跳转IAP例程，配合RemoteController例程使用
+  |      |      |      |      |-- RemoteController：遥控器例程，包含蓝牙配对，按键检测，低功耗管理，ADC电量采集，PWM驱灯等功能演示
   |      |      |      |      |-- RunningSensor：跑步传感器例程，连接主机后定时上传速度
   |      |      |      |      |-- HID_Keyboard：蓝牙键盘例程，模拟键盘设备，连接主机后定时上传键值
   |      |      |      |      |-- HID_Mouse：蓝牙鼠标例程，模拟鼠标设备，连接主机后定时上传键值

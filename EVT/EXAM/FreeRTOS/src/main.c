@@ -167,7 +167,8 @@ int main(void)
     GPIOA_ModeCfg(bTXD1, GPIO_ModeOut_PP_5mA);
     UART1_DefInit();
 #endif
-    PRINT("start.\n");
+    PRINT("Program build on: %s, %s\n", __DATE__, __TIME__);
+    PRINT("FreeRTOS %s start.\n", tskKERNEL_VERSION_NUMBER);
 
     printMutex = xSemaphoreCreateMutex();
     if(printMutex == NULL)

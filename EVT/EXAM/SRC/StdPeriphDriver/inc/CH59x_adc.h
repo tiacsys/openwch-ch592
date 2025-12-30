@@ -242,6 +242,16 @@ int adc_to_temperature_celsius(uint16_t adc_val);
 #define ADC_ClearDMAFlag()        (R8_ADC_DMA_IF |= RB_ADC_IF_DMA_END)
 
 /**
+ * @brief   获取ADC DMA ADC转换完成完成状态
+ */
+#define ADC_GetDMA_EOCStatus()    (R8_ADC_DMA_IF & RB_ADC_IF_END_ADC)
+
+/**
+ * @brief   清除ADC DMA ADC转换完成完成标志
+ */
+#define ADC_ClearDMA_EOCFlag()    (R8_ADC_DMA_IF |= RB_ADC_IF_END_ADC)
+
+/**
  * @brief   开启定时间隔自动连续 ADC
  */
 #define ADC_StartAutoDMA()        (R8_ADC_CTRL_DMA |= RB_ADC_AUTO_EN)

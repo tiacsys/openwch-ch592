@@ -15,6 +15,8 @@
 #define  PWM8     1
 #define  PWM16    0
 
+uint16_t nextPWMCyc;
+
 /*********************************************************************
  * @fn      main
  *
@@ -69,8 +71,34 @@ int main()
     PWMX_16bit_ACTOUT(CH_PWM8, 15000, High_Level, ENABLE); // 25%占空比
     PWMX_16bit_ACTOUT(CH_PWM9, 45000, High_Level, ENABLE); // 75%占空比
 
+#if 0
+    // 切换周期演示，在进行周期切换时需要等到上一个周期完成后再切，以PWM4为例
+    nextPWMCyc = 30000-1;
+    PWM_INTCfg(ENABLE, RB_PWM_IE_CYC);
+    PFIC_EnableIRQ(PWMX_IRQn);
 #endif
-
+#endif
 
     while(1);
 }
+
+/*********************************************************************
+ * @fn      PWMX_IRQHandler
+ *
+ * @brief   PWMX中断函数
+ *
+ * @return  none
+ */
+__INTERRUPT
+__HIGH_CODE
+void PWMX_IRQHandler(void)
+{
+    if(R8_PWM_INT_CTRL & RB_PWM_IF_CYC)
+    {
+        R8_PWM_INT_CTRL = RB_PWM_IF_CYC;
+        PWMX_16bit_ACTOUT(CH_PWM4, nextPWMCyc/4, High_Level, ENABLE);  // 切换周期时需要先改变占空比
+        PWMX_16bit_CycleCfg(nextPWMCyc);
+    }
+    PFIC_DisableIRQ(PWMX_IRQn);
+}
+

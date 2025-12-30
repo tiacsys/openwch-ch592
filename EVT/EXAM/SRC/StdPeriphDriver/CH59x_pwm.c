@@ -169,3 +169,27 @@ void PWMX_AlterOutCfg(uint8_t ch, FunctionalState s)
         R8_PWM_CONFIG |= (ch);
     }
 }
+
+/*********************************************************************
+ * @fn      PWM_INTCfg
+ *
+ * @brief   PWM中断配置
+ *
+ * @param   s       - 中断控制状态，是否使能相应中断
+ * @param   i       - 中断类型
+ *                    RB_PWM_IE_CYC   - PWM周期结束中断使能位
+ *
+ * @return  none
+ */
+void PWM_INTCfg(FunctionalState s, uint8_t i)
+{
+    if(s)
+    {
+        R8_PWM_INT_CTRL |= i;
+    }
+    else
+    {
+        R8_PWM_INT_CTRL &= ~i;
+    }
+}
+

@@ -1,7 +1,7 @@
 
-Nanjing Qinheng Microelectronics Co., Ltd. 2024.04
+Nanjing Qinheng Microelectronics Co., Ltd. 2025.11
 
-http://wch-ic.com
+https://wch-ic.com
 
 
 Directory
@@ -63,6 +63,9 @@ Directory
   |      |      |      |      |-- HeartRate: heart rate routine, upload heart rate regularly after connected to the central
   |      |      |      |      |-- Peripheral: peripheral role routine, custom including five services with different  attributes, including read attribute, write attribute, notify attribute, read/write attribute, and safe and readable attribute
   |      |      |      |      |-- peripheral_ancs_client: peripheral role routine, including Apple Notification Center Service
+  |      |      |      |      |-- RemoteController_IAP: backup wireless upgrade IAP routine, used in conjunction with the RemoteController routine.
+  |      |      |      |      |-- RemoteController_JumpIAP: backup wireless upgrade jump IAP routine£¬used in conjunction with the RemoteController routine.
+  |      |      |      |      |-- RemoteController: Remote Controller Firmware Demo. This routine incorporates demonstrations for Bluetooth pairing, key detection, low-power management, ADC battery level sampling, and PWM-driven LED control.
   |      |      |      |      |-- RunningSensor: running sensor routine,upload rate regularly after connected to the central 
   |      |      |      |      |-- HID_Keyboard: BLE keyboard routine, simulate a keyboard device, upload key value regularly after connected to the central
   |      |      |      |      |-- HID_Mouse: BLE mouse routine, simulate a mouse device, upload key value regularly after connected to the central

@@ -12,7 +12,7 @@
 
 #include "CH59x_common.h"
 
-__attribute__((aligned(4))) uint32_t CapBuf[100];
+__attribute__((aligned(4))) uint32_t CapBuf[102]; // 注意前两个数据为无效数据
 __attribute__((aligned(4))) uint32_t PwmBuf[100];
 
 volatile uint8_t capFlag = 0;
@@ -78,13 +78,13 @@ int main()
 
     TMR1_CapInit(Edge_To_Edge);
     TMR1_CAPTimeoutCfg(0xFFFFFFFF); // 设置捕捉超时时间
-    TMR1_DMACfg(ENABLE, (uint16_t)(uint32_t)&CapBuf[0], (uint16_t)(uint32_t)&CapBuf[100], Mode_Single);
+    TMR1_DMACfg(ENABLE, (uint16_t)(uint32_t)&CapBuf[0], (uint16_t)(uint32_t)&CapBuf[102], Mode_Single);
     TMR1_ITCfg(ENABLE, TMR1_2_IT_DMA_END); // 开启DMA完成中断
     PFIC_EnableIRQ(TMR1_IRQn);
 
     while(capFlag == 0);
     capFlag = 0;
-    for(i = 0; i < 100; i++)
+    for(i = 2; i < 102; i++)   // 注意前两个数据为无效数据
     {
         PRINT("%08ld ", CapBuf[i] & 0x1ffffff); // 26bit, 最高位表示 高电平还是低电平
     }

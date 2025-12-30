@@ -188,18 +188,19 @@ extern const uint8_t VER_LIB[];  // LIB version
 #endif
 
 /* TxPower define(Accuracy:¡À2dBm) */
-#define LL_TX_POWEER_MINUS_20_DBM       0x01
-#define LL_TX_POWEER_MINUS_15_DBM       0x03
-#define LL_TX_POWEER_MINUS_10_DBM       0x05
-#define LL_TX_POWEER_MINUS_8_DBM        0x07
-#define LL_TX_POWEER_MINUS_5_DBM        0x0B
-#define LL_TX_POWEER_MINUS_3_DBM        0x0F
-#define LL_TX_POWEER_MINUS_1_DBM        0x13
-#define LL_TX_POWEER_0_DBM              0x15
-#define LL_TX_POWEER_1_DBM              0x1B
-#define LL_TX_POWEER_2_DBM              0x23
-#define LL_TX_POWEER_3_DBM              0x2B
-#define LL_TX_POWEER_4_DBM              0x3B
+#define LL_TX_PWR_MINUS_20_DBM       0x01
+#define LL_TX_PWR_MINUS_15_DBM       0x03
+#define LL_TX_PWR_MINUS_10_DBM       0x05
+#define LL_TX_PWR_MINUS_8_DBM        0x07
+#define LL_TX_PWR_MINUS_5_DBM        0x0B
+#define LL_TX_PWR_MINUS_3_DBM        0x0F
+#define LL_TX_PWR_MINUS_1_DBM        0x13
+#define LL_TX_PWR_0_DBM              0x15
+#define LL_TX_PWR_1_DBM              0x1B
+#define LL_TX_PWR_2_DBM              0x23
+#define LL_TX_PWR_3_DBM              0x2B
+#define LL_TX_PWR_4_DBM              0x3B
+#define LL_TX_PWR_9_DBM              0xBF
 
 /* ERR_LIB_INIT define */
 #define ERR_LLE_IRQ_HANDLE              0x01
@@ -2450,6 +2451,20 @@ typedef struct
 
 #define  LLE_MODE_NON_RSSI            (1<<7)
 
+/* TxPower define(Accuracy:¡À2dBm) */
+#define LL_TX_POWEER_MINUS_20_DBM       0x01
+#define LL_TX_POWEER_MINUS_15_DBM       0x03
+#define LL_TX_POWEER_MINUS_10_DBM       0x05
+#define LL_TX_POWEER_MINUS_8_DBM        0x07
+#define LL_TX_POWEER_MINUS_5_DBM        0x0B
+#define LL_TX_POWEER_MINUS_3_DBM        0x0F
+#define LL_TX_POWEER_MINUS_1_DBM        0x13
+#define LL_TX_POWEER_0_DBM              0x15
+#define LL_TX_POWEER_1_DBM              0x1B
+#define LL_TX_POWEER_2_DBM              0x23
+#define LL_TX_POWEER_3_DBM              0x2B
+#define LL_TX_POWEER_4_DBM              0x3B
+#define LL_TX_POWEER_9_DBM              0xBF
 /**
  * RFRole Event Callback Function
  */

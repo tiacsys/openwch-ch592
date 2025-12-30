@@ -160,6 +160,15 @@ void PWMX_16bit_ACTOUT(uint8_t ch, uint16_t da, PWMX_PolarTypeDef pr, Functional
  */
 void PWMX_AlterOutCfg(uint8_t ch, FunctionalState s);
 
+/**
+ * @brief   PWM中断配置
+ *
+* @param   s       - 中断控制状态，是否使能相应中断
+* @param   i       - 中断类型
+*                    RB_PWM_IE_CYC   - PWM周期结束中断使能位
+*/
+void PWM_INTCfg(FunctionalState s, uint8_t i);
+
 #ifdef __cplusplus
 }
 #endif
